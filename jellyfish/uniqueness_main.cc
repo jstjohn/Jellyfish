@@ -129,6 +129,12 @@ void print_wig_file(const hash_t &h, std::istream &in, std::ostream &out) {
           break;
         }
       }
+      //handle the last few bases, just give them 0 scores
+      if(i >= int(fa.sequence.size()) - int(mer_len)){
+        for(int j = i; j < int(fa.sequence.size()); j++){
+          out << 0 << endl;
+        }
+      }
     }
   }
 }
