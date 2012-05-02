@@ -5,16 +5,16 @@
 # It is necessary for linking the library.
 
 # The name that we can dlopen(3).
-dlname='libjellyfish.1.dylib'
+dlname='libjellyfish.so.1'
 
 # Names of this library.
-library_names='libjellyfish.1.dylib libjellyfish.dylib'
+library_names='libjellyfish.so.1.0.0 libjellyfish.so.1 libjellyfish.so'
 
 # The name of the static archive.
 old_library='libjellyfish.a'
 
 # Linker flags that can not go in dependency_libs.
-inherited_linker_flags=' '
+inherited_linker_flags=''
 
 # Libraries that this one depends upon.
 dependency_libs=''
@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/Users/jstjohn/lib'
+libdir='/cluster/home/jstjohn/lib'

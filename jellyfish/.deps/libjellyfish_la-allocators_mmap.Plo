@@ -1,20 +1,25 @@
-jellyfish/libjellyfish_la-allocators_mmap.lo \
-  jellyfish/libjellyfish_la-allocators_mmap.o:  \
+jellyfish/libjellyfish_la-allocators_mmap.lo: \
  jellyfish/allocators_mmap.cc config.h jellyfish/allocators_mmap.hpp \
-  /usr/include/sys/types.h /usr/include/sys/appleapiopts.h \
-  /usr/include/sys/cdefs.h /usr/include/sys/_symbol_aliasing.h \
-  /usr/include/sys/_posix_availability.h /usr/include/machine/types.h \
-  /usr/include/i386/types.h /usr/include/i386/_types.h \
-  /usr/include/sys/_types.h /usr/include/machine/_types.h \
-  /usr/include/machine/endian.h /usr/include/i386/endian.h \
-  /usr/include/sys/_endian.h /usr/include/libkern/_OSByteOrder.h \
-  /usr/include/libkern/i386/_OSByteOrder.h /usr/include/sys/_structs.h \
-  /usr/include/sys/mman.h /usr/include/pthread.h /usr/include/_types.h \
-  /usr/include/pthread_impl.h /usr/include/sched.h /usr/include/time.h \
-  /usr/include/_structs.h /usr/include/Availability.h \
-  /usr/include/AvailabilityInternal.h /usr/include/stdio.h \
-  /usr/include/unistd.h /usr/include/sys/unistd.h \
-  /usr/include/sys/select.h /usr/include/sys/_select.h
+ /usr/include/sys/types.h /usr/include/features.h \
+ /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
+ /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
+ /usr/include/bits/types.h \
+ /usr/lib/gcc/x86_64-redhat-linux6E/4.4.0/include/stddef.h \
+ /usr/include/bits/typesizes.h /usr/include/time.h /usr/include/endian.h \
+ /usr/include/bits/endian.h /usr/include/sys/select.h \
+ /usr/include/bits/select.h /usr/include/bits/sigset.h \
+ /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
+ /usr/include/bits/pthreadtypes.h /usr/include/sys/mman.h \
+ /usr/include/bits/mman.h /usr/include/pthread.h /usr/include/sched.h \
+ /usr/include/bits/sched.h /usr/include/xlocale.h /usr/include/signal.h \
+ /usr/include/bits/setjmp.h /usr/include/stdio.h /usr/include/libio.h \
+ /usr/include/_G_config.h /usr/include/wchar.h /usr/include/bits/wchar.h \
+ /usr/include/gconv.h \
+ /usr/lib/gcc/x86_64-redhat-linux6E/4.4.0/include/stdarg.h \
+ /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+ /usr/include/bits/stdio.h /usr/include/unistd.h \
+ /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
+ /usr/include/bits/confname.h /usr/include/getopt.h
 
 config.h:
 
@@ -22,60 +27,82 @@ jellyfish/allocators_mmap.hpp:
 
 /usr/include/sys/types.h:
 
-/usr/include/sys/appleapiopts.h:
+/usr/include/features.h:
 
 /usr/include/sys/cdefs.h:
 
-/usr/include/sys/_symbol_aliasing.h:
+/usr/include/bits/wordsize.h:
 
-/usr/include/sys/_posix_availability.h:
+/usr/include/gnu/stubs.h:
 
-/usr/include/machine/types.h:
+/usr/include/gnu/stubs-64.h:
 
-/usr/include/i386/types.h:
+/usr/include/bits/types.h:
 
-/usr/include/i386/_types.h:
+/usr/lib/gcc/x86_64-redhat-linux6E/4.4.0/include/stddef.h:
 
-/usr/include/sys/_types.h:
-
-/usr/include/machine/_types.h:
-
-/usr/include/machine/endian.h:
-
-/usr/include/i386/endian.h:
-
-/usr/include/sys/_endian.h:
-
-/usr/include/libkern/_OSByteOrder.h:
-
-/usr/include/libkern/i386/_OSByteOrder.h:
-
-/usr/include/sys/_structs.h:
-
-/usr/include/sys/mman.h:
-
-/usr/include/pthread.h:
-
-/usr/include/_types.h:
-
-/usr/include/pthread_impl.h:
-
-/usr/include/sched.h:
+/usr/include/bits/typesizes.h:
 
 /usr/include/time.h:
 
-/usr/include/_structs.h:
+/usr/include/endian.h:
 
-/usr/include/Availability.h:
-
-/usr/include/AvailabilityInternal.h:
-
-/usr/include/stdio.h:
-
-/usr/include/unistd.h:
-
-/usr/include/sys/unistd.h:
+/usr/include/bits/endian.h:
 
 /usr/include/sys/select.h:
 
-/usr/include/sys/_select.h:
+/usr/include/bits/select.h:
+
+/usr/include/bits/sigset.h:
+
+/usr/include/bits/time.h:
+
+/usr/include/sys/sysmacros.h:
+
+/usr/include/bits/pthreadtypes.h:
+
+/usr/include/sys/mman.h:
+
+/usr/include/bits/mman.h:
+
+/usr/include/pthread.h:
+
+/usr/include/sched.h:
+
+/usr/include/bits/sched.h:
+
+/usr/include/xlocale.h:
+
+/usr/include/signal.h:
+
+/usr/include/bits/setjmp.h:
+
+/usr/include/stdio.h:
+
+/usr/include/libio.h:
+
+/usr/include/_G_config.h:
+
+/usr/include/wchar.h:
+
+/usr/include/bits/wchar.h:
+
+/usr/include/gconv.h:
+
+/usr/lib/gcc/x86_64-redhat-linux6E/4.4.0/include/stdarg.h:
+
+/usr/include/bits/stdio_lim.h:
+
+/usr/include/bits/sys_errlist.h:
+
+/usr/include/bits/stdio.h:
+
+/usr/include/unistd.h:
+
+/usr/include/bits/posix_opt.h:
+
+/usr/include/bits/environments.h:
+
+/usr/include/bits/confname.h:
+
+/usr/include/getopt.h:

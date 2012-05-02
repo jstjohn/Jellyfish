@@ -6,7 +6,7 @@ DIR=../bin
 JF=$DIR/jellyfish
 
 check () {
-    cut -d\  -f 2 $1 | xargs md5 -r | sort | diff -w $1 -
+    cut -d\  -f 2 $1 | xargs md5sum | sort | diff -w $1 -
 }
 
 if [ -n "$DEBUG" ]; then
