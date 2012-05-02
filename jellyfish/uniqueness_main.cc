@@ -151,7 +151,7 @@ int uniqueness_main(int argc, char *argv[])
     die << "Can't open output file '" << args.output_arg << "'" << err::no;
 
   mapped_file dbf(args.db_arg.c_str());
-  dbf.sequential().will_need();
+  dbf.random().will_need();
   char type[8];
   memcpy(type, dbf.base(), sizeof(type));
   if(!strncmp(type, jellyfish::raw_hash::file_type, sizeof(type))) {
