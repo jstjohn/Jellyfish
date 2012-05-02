@@ -14,6 +14,8 @@
     along with Jellyfish.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <jellyfish/err.hpp>
+#include <jellyfish/dbg.hpp>
 #include <jellyfish/dumper.hpp>
 #include <jellyfish/heap.hpp>
 #include <jellyfish/thread_exec.hpp>
@@ -42,9 +44,11 @@ namespace jellyfish {
     storage_t            *ary;
     int                   file_index;
     token_ring_t          tr;
+    uint64_t              lower_count, upper_count;
     struct thread_info_t *thread_info;
     uint64_t volatile     unique, distinct, total, max_count;
     std::ofstream        *out;
+    locks::pthread::mutex dump_mutex;
 
   public:
     // klen: key field length in bits in hash (i.e before rounding up to bytes)
@@ -53,7 +57,7 @@ namespace jellyfish {
                      uint_t _vlen, storage_t *_ary) :
       threads(_threads), file_prefix(_file_prefix), buffer_size(_buffer_size),
       klen(_ary->get_key_len()), vlen(_vlen), ary(_ary), file_index(0),
-      tr()
+      tr(), lower_count(0), upper_count((uint64_t)-1)
     {
       key_len    = bits_to_bytes(klen);
       val_len    = bits_to_bytes(vlen);
@@ -79,6 +83,9 @@ namespace jellyfish {
       }
     }
     
+    void set_lower_count(uint64_t l) { lower_count = l; }
+    void set_upper_count(uint64_t u) { upper_count = u; }
+
     virtual void start(int i) { dump_to_file(i); }
     void dump_to_file(int i);
 
@@ -92,18 +99,17 @@ namespace jellyfish {
   template<typename storage_t, typename atomic_t>
   void sorted_dumper<storage_t,atomic_t>::_dump() {
     std::ofstream _out;
-    open_next_file(file_prefix.c_str(), file_index, _out);
+    assert(dump_mutex.try_lock());
+    open_next_file(file_prefix.c_str(), &file_index, _out);
     out = &_out;
     unique = distinct = total = max_count = 0;
     tr.reset();
-    for(uint_t i = 0; i < threads; i++) {
-      thread_info[i].writer.reset_counters();
-    }
     thread_info[0].writer.write_header(out);
     exec_join(threads);
     ary->zero_blocks(0, nb_blocks); // zero out last group of blocks
     update_stats();
     _out.close();
+    dump_mutex.unlock();
   }
 
   template<typename storage_t, typename atomic_t>
@@ -112,6 +118,8 @@ namespace jellyfish {
     struct thread_info_t *my_info = &thread_info[id];
     atomic_t              atomic;
 
+    my_info->writer.reset_counters();
+
     for(i = id; i * nb_records < ary->get_size(); i += threads) {
       // fill up buffer
       iterator it(ary, i * nb_records, (i + 1) * nb_records);
@@ -119,14 +127,16 @@ namespace jellyfish {
 
       while(it.next()) {
         typename oheap_t::const_item_t item = my_info->heap.head();
-        my_info->writer.append(item->key, item->val);
+        if(item->val >= lower_count && item->val <= upper_count)
+          my_info->writer.append(item->key, item->val);
         my_info->heap.pop();
         my_info->heap.push(it);
       }
 
       while(my_info->heap.is_not_empty()) {
         typename oheap_t::const_item_t item = my_info->heap.head();
-        my_info->writer.append(item->key, item->val);
+        if(item->val >= lower_count && item->val <= upper_count)
+          my_info->writer.append(item->key, item->val);
         my_info->heap.pop();
       }
 

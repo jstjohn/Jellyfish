@@ -108,12 +108,10 @@ namespace jellyfish {
 
     word *get_word_offset(size_t id, const offset_t **o, const offset_t **lo,
 			  word * const base) const {
-      // size_t in_block_id = id % block_len;
-      // *o = &offsets[in_block_id].normal;
-      // *lo = &offsets[in_block_id].large;
-      // return base + (block_word_len * (id / block_len));
-      uint64_t q, r;
-      bld.division(id, q, r);
+      uint64_t q = id / block_len;
+      uint64_t r = id % block_len;
+      // uint64_t q, r;
+      // bld.division(id, q, r);
       word *w = base + (block_word_len * q);
       *o = &offsets[r].normal;
       *lo = &offsets[r].large;
@@ -121,9 +119,11 @@ namespace jellyfish {
     }
 
   private:
-    uint_t        key_len, val_len, block_len, block_word_len;
+    uint_t        key_len, val_len;
+    uint_t        block_len; // Length of a block in number of entries
+    uint_t        block_word_len; // Length of a block in number of words
     uint_t        reprobe_limit, reprobe_len, lval_len;
-    divisor64     bld;
+    divisor64     bld; // Fast divisor by block_len
     offset_pair_t offsets[bsizeof(word)];
 
     void compute_offsets();

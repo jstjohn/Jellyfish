@@ -1,0 +1,7 @@
+.cproject
+.project
+*.o
+*.a
+*.O
+*.Po
+
